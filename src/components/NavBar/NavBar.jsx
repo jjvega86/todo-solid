@@ -1,7 +1,8 @@
 import { Link } from "solid-app-router";
 import { supabase } from "../../services/Supabase/supabaseClient";
+import { Show } from "solid-js";
 
-export default function NavBar() {
+export default function NavBar(props) {
   return (
     <nav class="container-fluid">
       <ul>
@@ -16,7 +17,12 @@ export default function NavBar() {
           <Link href="/account">Account</Link>
         </li>
         <li>
-          <button onClick={() => supabase.auth.signOut()}>Logout</button>
+          <Show
+            when={props.session}
+            fallback={<Link href="/login">Log In</Link>}
+          >
+            <button onClick={() => supabase.auth.signOut()}>Logout</button>
+          </Show>
         </li>
       </ul>
     </nav>

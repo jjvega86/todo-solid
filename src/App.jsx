@@ -20,7 +20,7 @@ export default function App() {
 
   return (
     <>
-      <NavBar />
+      <NavBar session={session()} />
       <Routes>
         <Route
           path="/"
@@ -29,7 +29,13 @@ export default function App() {
         <Route path="/login" element={<Auth />} />
         <Route
           path="/account"
-          element={<Account key={session().user.id} session={session()} />}
+          element={
+            session() ? (
+              <Account key={session().user.id} session={session()} />
+            ) : (
+              <Auth />
+            )
+          }
         />
       </Routes>
     </>
