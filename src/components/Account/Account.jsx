@@ -70,11 +70,11 @@ const Account = (props) => {
   };
 
   return (
-    <div>
+    <div class="container">
       {loading() ? (
         "Saving ..."
       ) : (
-        <form onSubmit={updateProfile} className="form-widget">
+        <form onSubmit={updateProfile}>
           <Avatar
             url={avatar_url()}
             size={150}
@@ -84,7 +84,7 @@ const Account = (props) => {
               updateProfile();
             }}
           />
-          <div>Email: {props.session.user.email}</div>
+          <div>Email: {props.session && props.session.user.email}</div>
           <div>
             <label htmlFor="username">Name</label>
             <input
@@ -104,21 +104,13 @@ const Account = (props) => {
             />
           </div>
           <div>
-            <button
-              type="submit"
-              className="button block primary"
-              disabled={loading()}
-            >
+            <button type="submit" disabled={loading()}>
               Update profile
             </button>
           </div>
         </form>
       )}
-      <button
-        type="button"
-        className="button block"
-        onClick={() => supabase.auth.signOut()}
-      >
+      <button type="button" onClick={() => supabase.auth.signOut()}>
         Sign Out
       </button>
     </div>

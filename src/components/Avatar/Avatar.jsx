@@ -10,12 +10,7 @@ export default (props) => {
     if (props.url) downloadImage(props.url);
   });
 
-  createEffect(() => {
-    console.log(props);
-  });
-
   const downloadImage = async (path) => {
-    console.log(path);
     try {
       const { data, error } = await supabase.storage
         .from("avatars")
@@ -68,16 +63,13 @@ export default (props) => {
             : `https://place-hold.it/${props.size}x${props.size}`
         }
         alt={avatarUrl() ? "Avatar" : "No image"}
-        className="avatar image"
         style={{ height: `${props.size}px`, width: `${props.size}px` }}
       />
       {uploading() ? (
         "Uploading..."
       ) : (
         <>
-          <label className="button primary block" htmlFor="single">
-            Upload an avatar
-          </label>
+          <label htmlFor="single">Upload an avatar</label>
           <span style="display:none">
             <input
               type="file"
