@@ -3,7 +3,7 @@ export default function Todo(props) {
     <div>
       <p>
         <span>
-          <input type="checkbox" value={props.completed} />
+          <input type="checkbox" checked={props.completed} />
         </span>
         {props.text}
       </p>
