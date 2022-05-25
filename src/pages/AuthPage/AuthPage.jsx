@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
 import { supabase } from "../../services/Supabase/supabaseClient";
 
-export default function Auth() {
+export default function AuthPage() {
   const [loading, setLoading] = createSignal(false);
   const [email, setEmail] = createSignal("");
 

@@ -1,7 +1,7 @@
 import { createSignal, createEffect } from "solid-js";
 import { supabase } from "../../services/Supabase/supabaseClient";
-import Avatar from "../Avatar/Avatar";
-const Account = (props) => {
+import Avatar from "../../components/Avatar/Avatar";
+export default function AccountPage(props) {
   const [loading, setLoading] = createSignal(false);
   const [username, setUsername] = createSignal(null);
   const [website, setWebsite] = createSignal(null);
@@ -115,6 +115,4 @@ const Account = (props) => {
       </button>
     </div>
   );
-};
-
-export default Account;
+}

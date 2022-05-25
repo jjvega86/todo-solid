@@ -2,9 +2,9 @@ import { createSignal, createEffect } from "solid-js";
 import { supabase } from "./services/Supabase/supabaseClient";
 import { Routes, Route } from "solid-app-router";
 
-import Auth from "./components/Auth/Auth";
-import Account from "./components/Account/Account";
-import Home from "./components/Home/Home";
+import AuthPage from "./pages/AuthPage/AuthPage";
+import AccountPage from "./pages/AccountPage/AccountPage";
+import HomePage from "./pages/HomePage/HomePage";
 import NavBar from "./components/NavBar/NavBar";
 
 export default function App() {
@@ -24,16 +24,16 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={session() ? <Home session={session()} /> : <Auth />}
+          element={session() ? <HomePage session={session()} /> : <AuthPage />}
         />
-        <Route path="/login" element={<Auth />} />
+        <Route path="/login" element={<AuthPage />} />
         <Route
           path="/account"
           element={
             session() ? (
-              <Account key={session().user.id} session={session()} />
+              <AccountPage key={session().user.id} session={session()} />
             ) : (
-              <Auth />
+              <AuthPage />
             )
           }
         />
