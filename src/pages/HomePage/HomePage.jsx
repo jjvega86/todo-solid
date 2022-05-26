@@ -1,27 +1,16 @@
+import useTodoStore from "./useTodoStore";
+
 import TodoList from "../../components/TodoList/TodoList";
-
-//TODO: convert todos to a Store; wire eventHandlers to change completed status
-
-const todos = [
-  {
-    text: "Do some stuff",
-    completed: false,
-  },
-  {
-    text: "Do some more stuff",
-    completed: false,
-  },
-  {
-    text: "Rest",
-    completed: false,
-  },
-];
+import TodoForm from "../../components/TodoForm/TodoForm";
 
 export default function HomePage(props) {
+  const [todos, { addTodo, toggleTodo }] = useTodoStore();
+
   return (
     <div class="container">
       <h1>Hello {props.session.user.email}!</h1>
-      <TodoList todos={todos} />
+      <TodoForm addTodo={addTodo} />
+      <TodoList todos={todos} toggle={toggleTodo} />
     </div>
   );
 }

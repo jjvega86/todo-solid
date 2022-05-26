@@ -2,10 +2,18 @@ export default function Todo(props) {
   return (
     <div>
       <p>
-        <span>
-          <input type="checkbox" checked={props.completed} />
+        <span
+          style={{
+            "text-decoration": props.completed ? "line-through" : "none",
+          }}
+        >
+          <input
+            type="checkbox"
+            checked={props.completed}
+            onChange={[props.toggle, props.id]}
+          />
+          {props.text}
         </span>
-        {props.text}
       </p>
     </div>
   );
