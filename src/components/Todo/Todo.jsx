@@ -1,48 +1,67 @@
-import { createSignal } from "solid-js";
+import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import DeleteIcon from "../DeleteIcon/DeleteIcon";
 
 export default function Todo(props) {
-  const [toggle, setToggle] = createSignal(false);
+  const [toggleEdit, setToggleEdit] = createSignal(false);
   const [toggleDelete, setToggleDelete] = createSignal(false);
   const [modifiedText, setModifiedText] = createSignal(props.text);
 
-  const handleClick = (e) => {
+  let todoRef;
+  function onBodyClick(event) {
+    if (event.target !== todoRef) {
+      setToggleEdit(false);
+      document.removeEventListener("click", onBodyClick);
+    }
+  }
+
+  createEffect(() => {
+    if (toggleEdit()) {
+      document.addEventListener("click", onBodyClick);
+    }
+  });
+
+  const toggleEditField = (e) => {
     if (e.detail === 2) {
-      setToggle((prev) => !prev);
+      setToggleEdit((prev) => !prev);
     }
   };
 
-  const handleSubmit = (e) => {
+  const submitTodoEdit = (e) => {
     e.preventDefault();
-    setToggle((prev) => !prev);
+    setToggleEdit((prev) => !prev);
     props.dispatch({
       type: "EDIT_TODO",
       payload: { id: props.id, newText: modifiedText() },
     });
   };
 
+  const canShowDeleteIcon = () => {
+    return toggleEdit() !== true && toggleDelete() === true;
+  };
+
   return (
     <div>
-      <p onClick={handleClick}>
+      <p onClick={toggleEditField}>
         <span
           style={{
             "text-decoration": props.completed ? "line-through" : "none",
           }}
         >
-          {toggle() ? (
-            <form onSubmit={handleSubmit}>
+          {toggleEdit() ? (
+            <form onSubmit={submitTodoEdit}>
               <input
                 style={{ display: "inline" }}
                 type="text"
                 value={modifiedText()}
                 onInput={(e) => setModifiedText(e.target.value)}
+                ref={todoRef}
               />
             </form>
           ) : (
             <div
-              onMouseEnter={() => setToggleDelete(!toggleDelete())}
-              onMouseLeave={() => setToggleDelete(!toggleDelete())}
+              onMouseEnter={() => setToggleDelete(true)}
+              onMouseLeave={() => setToggleDelete(false)}
             >
-              {" "}
               <input
                 type="checkbox"
                 checked={props.completed}
@@ -54,8 +73,14 @@ export default function Todo(props) {
                 }
               />
               {props.text}
-              {toggleDelete() && (
-                <button
+              {canShowDeleteIcon() && (
+                <a
+                  href="#"
+                  style={{
+                    position: "relative",
+                    left: "50px",
+                    width: "150px",
+                  }}
                   onClick={() =>
                     props.dispatch({
                       type: "DELETE_TODO",
@@ -63,8 +88,8 @@ export default function Todo(props) {
                     })
                   }
                 >
-                  DELETE
-                </button>
+                  <DeleteIcon />
+                </a>
               )}
             </div>
           )}
