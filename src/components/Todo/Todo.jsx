@@ -2,6 +2,7 @@ import { createSignal } from "solid-js";
 
 export default function Todo(props) {
   const [toggle, setToggle] = createSignal(false);
+  const [toggleDelete, setToggleDelete] = createSignal(false);
   const [modifiedText, setModifiedText] = createSignal(props.text);
 
   const handleClick = (e) => {
@@ -37,7 +38,10 @@ export default function Todo(props) {
               />
             </form>
           ) : (
-            <div>
+            <div
+              onMouseEnter={() => setToggleDelete(!toggleDelete())}
+              onMouseLeave={() => setToggleDelete(!toggleDelete())}
+            >
               {" "}
               <input
                 type="checkbox"
@@ -50,6 +54,18 @@ export default function Todo(props) {
                 }
               />
               {props.text}
+              {toggleDelete() && (
+                <button
+                  onClick={() =>
+                    props.dispatch({
+                      type: "DELETE_TODO",
+                      payload: { id: props.id },
+                    })
+                  }
+                >
+                  DELETE
+                </button>
+              )}
             </div>
           )}
         </span>

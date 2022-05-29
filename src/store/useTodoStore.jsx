@@ -23,6 +23,9 @@ export default function useTodoStore() {
     editTodo: ({ id, newText }) => {
       setState("todos", (todo) => todo.id == id, "text", newText);
     },
+    deleteTodo: ({ id }) => {
+      setState("todos", (todos) => todos.filter((todo) => todo.id !== id));
+    },
   };
 
   const dispatch = (action) => {
@@ -35,6 +38,9 @@ export default function useTodoStore() {
         break;
       case "EDIT_TODO":
         actions.editTodo(action.payload);
+        break;
+      case "DELETE_TODO":
+        actions.deleteTodo(action.payload);
         break;
       default:
         alert(`Invalid action type: ${action.type}`);
