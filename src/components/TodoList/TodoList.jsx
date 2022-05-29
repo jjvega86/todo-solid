@@ -8,6 +8,7 @@ export default function TodoList(props) {
           text={todo.text}
           completed={todo.completed}
           toggle={props.toggle}
+          edit={props.edit}
           id={todo.id}
         />
       )}

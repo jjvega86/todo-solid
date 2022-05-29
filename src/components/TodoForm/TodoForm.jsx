@@ -11,6 +11,7 @@ export default function TodoForm(props) {
       <input
         type="text"
         value={text()}
+        placeholder="What will you do?"
         onInput={(e) => setText(e.target.value)}
       />
     </form>
