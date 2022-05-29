@@ -35,30 +35,11 @@ export default function useTodoStore() {
         break;
       case "EDIT_TODO":
         actions.editTodo(action.payload);
+        break;
       default:
         alert(`Invalid action type: ${action.type}`);
     }
   };
-
-  // const addTodo = (text) => {
-  //   setState("todos", (todos) => [
-  //     ...todos,
-  //     { id: todos.length, text, completed: false },
-  //   ]);
-  // };
-
-  // const toggleTodo = (id) => {
-  //   setState(
-  //     "todos",
-  //     (todo) => todo.id === id,
-  //     "completed",
-  //     (c) => !c
-  //   );
-  // };
-
-  // const editTodo = (id, newText) => {
-  //   setState("todos", (todo) => todo.id == id, "text", newText);
-  // };
 
   return [state, dispatch];
 }

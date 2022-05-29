@@ -13,7 +13,10 @@ export default function Todo(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setToggle((prev) => !prev);
-    props.edit(props.id, modifiedText());
+    props.dispatch({
+      type: "EDIT_TODO",
+      payload: { id: props.id, newText: modifiedText() },
+    });
   };
 
   return (
@@ -39,7 +42,12 @@ export default function Todo(props) {
               <input
                 type="checkbox"
                 checked={props.completed}
-                onChange={[props.toggle, props.id]}
+                onChange={() =>
+                  props.dispatch({
+                    type: "TOGGLE_TODO",
+                    payload: { id: props.id },
+                  })
+                }
               />
               {props.text}
             </div>

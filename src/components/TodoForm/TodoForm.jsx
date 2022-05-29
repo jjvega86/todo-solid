@@ -5,7 +5,8 @@ export default function TodoForm(props) {
   return (
     <form
       onSubmit={() => {
-        props.addTodo(text()), setText("");
+        props.dispatch({ type: "ADD_TODO", payload: { text: text() } }),
+          setText("");
       }}
     >
       <input
