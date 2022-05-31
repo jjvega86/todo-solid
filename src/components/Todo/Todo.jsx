@@ -38,7 +38,7 @@ export default function Todo(props) {
   };
 
   return (
-    <div>
+    <div style={{ padding: ".25rem", height: "3rem" }}>
       <p onClick={toggleEditField}>
         <span
           style={{
