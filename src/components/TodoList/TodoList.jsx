@@ -1,38 +1,18 @@
-import { For, Show } from "solid-js";
 import Todo from "../Todo/Todo";
+import { For } from "solid-js";
 export default function TodoList(props) {
   return (
-    <Show when={props.todos.length > 0} fallback={<p>Awaiting your todos!</p>}>
-      <article>
-        <header>
-          <For each={props.todos.filter((todo) => todo.completed === false)}>
-            {(todo) => (
-              <Todo
-                text={todo.text}
-                completed={todo.completed}
-                id={todo.id}
-                dispatch={props.dispatch}
-              />
-            )}
-          </For>
-        </header>
-        <details>
-          <summary>Completed Todos</summary>
-          <For each={props.todos.filter((todo) => todo.completed === true)}>
-            {(todo) => (
-              <Todo
-                text={todo.text}
-                completed={todo.completed}
-                id={todo.id}
-                dispatch={props.dispatch}
-              />
-            )}
-          </For>
-        </details>
-        <a onClick={() => props.dispatch({ type: "CLEAR_COMPLETED" })}>
-          Clear Completed
-        </a>
-      </article>
-    </Show>
+    <For
+      each={props.todos.filter((todo) => todo.completed === props.filterType)}
+    >
+      {(todo) => (
+        <Todo
+          text={todo.text}
+          completed={todo.completed}
+          id={todo.id}
+          dispatch={props.dispatch}
+        />
+      )}
+    </For>
   );
 }
