@@ -3,6 +3,7 @@ import { createStore } from "solid-js/store";
 export default function useTodoStore() {
   const [state, setState] = createStore({
     todos: [],
+    completedTodos: [],
   });
 
   const actions = {
@@ -20,6 +21,7 @@ export default function useTodoStore() {
         (c) => !c
       );
     },
+
     editTodo: ({ id, newText }) => {
       setState("todos", (todo) => todo.id == id, "text", newText);
     },

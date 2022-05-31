@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import DeleteIcon from "../DeleteIcon/DeleteIcon";
 
 export default function Todo(props) {
@@ -15,9 +15,7 @@ export default function Todo(props) {
   }
 
   createEffect(() => {
-    if (toggleEdit()) {
-      document.addEventListener("click", onBodyClick);
-    }
+    toggleEdit() && document.addEventListener("click", onBodyClick);
   });
 
   const toggleEditField = (e) => {
