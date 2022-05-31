@@ -29,6 +29,9 @@ export default function TodoList(props) {
             )}
           </For>
         </details>
+        <a onClick={() => props.dispatch({ type: "CLEAR_COMPLETED" })}>
+          Clear Completed
+        </a>
       </article>
     </Show>
   );

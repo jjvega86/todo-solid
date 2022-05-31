@@ -22,6 +22,12 @@ export default function useTodoStore() {
       );
     },
 
+    clearCompleted: () => {
+      setState("todos", (todos) =>
+        todos.filter((todo) => todo.completed !== true)
+      );
+    },
+
     editTodo: ({ id, newText }) => {
       setState("todos", (todo) => todo.id == id, "text", newText);
     },
@@ -43,6 +49,9 @@ export default function useTodoStore() {
         break;
       case "DELETE_TODO":
         actions.deleteTodo(action.payload);
+        break;
+      case "CLEAR_COMPLETED":
+        actions.clearCompleted();
         break;
       default:
         alert(`Invalid action type: ${action.type}`);
