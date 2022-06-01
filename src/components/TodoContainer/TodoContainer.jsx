@@ -1,12 +1,19 @@
-import { For, Show } from "solid-js";
+import { Show } from "solid-js";
+import { styled } from "solid-styled-components";
 
-import Todo from "../Todo/Todo";
 import TodoCounter from "../TodoCounter/TodoCounter";
 import TodoList from "../TodoList/TodoList";
 
+const Fallback = styled("p")`
+  text-align: center;
+`;
+
 export default function TodoContainer(props) {
   return (
-    <Show when={props.todos.length > 0} fallback={<p>Awaiting your todos!</p>}>
+    <Show
+      when={props.todos.length > 0}
+      fallback={<Fallback>Awaiting your todos!</Fallback>}
+    >
       <article>
         <TodoCounter todos={props.todos} />
         <header>
