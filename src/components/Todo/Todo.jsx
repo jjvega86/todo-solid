@@ -1,5 +1,21 @@
 import { createEffect, createSignal } from "solid-js";
+import { styled } from "solid-styled-components";
 import DeleteIcon from "../DeleteIcon/DeleteIcon";
+
+const Todo = styled("div")`
+  padding: ".25rem";
+  height: "3rem";
+`;
+
+const IconLink = styled("a")`
+  position: "relative";
+  left: "50px";
+  width: "150px";
+`;
+
+const TodoInput = styled("input")`
+  display: inline;
+`;
 
 export default function Todo(props) {
   const [toggleEdit, setToggleEdit] = createSignal(false);
@@ -38,7 +54,7 @@ export default function Todo(props) {
   };
 
   return (
-    <div style={{ padding: ".25rem", height: "3rem" }}>
+    <Todo>
       <p onClick={toggleEditField}>
         <span
           style={{
@@ -47,7 +63,7 @@ export default function Todo(props) {
         >
           {toggleEdit() ? (
             <form onSubmit={submitTodoEdit}>
-              <input
+              <TodoInput
                 style={{ display: "inline" }}
                 type="text"
                 value={modifiedText()}
@@ -72,7 +88,7 @@ export default function Todo(props) {
               />
               {props.text}
               {canShowDeleteIcon() && (
-                <a
+                <IconLink
                   href="#"
                   style={{
                     position: "relative",
@@ -87,12 +103,12 @@ export default function Todo(props) {
                   }
                 >
                   <DeleteIcon />
-                </a>
+                </IconLink>
               )}
             </div>
           )}
         </span>
       </p>
-    </div>
+    </Todo>
   );
 }
